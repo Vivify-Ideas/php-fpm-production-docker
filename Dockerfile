@@ -66,7 +66,9 @@ RUN apt-get -y update \
     libxml2-dev \
     libxslt1-dev \
     zlib1g-dev \
-    libpng-dev
+    libpng-dev \
+    iputils-ping \
+    procps
 
 # Install magick
 RUN export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
