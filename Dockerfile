@@ -14,22 +14,26 @@ RUN apt-get -y update \
     libxslt1.1 \
     zlib1g \
     libpng16-16 \
-    libmcrypt4 \
+    # libmcrypt4 \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     # Dev and headers
+    libmagickwand-dev \
     libbz2-dev \
     libicu-dev \
     libldap2-dev \
     libldb-dev \
-    libmcrypt-dev \
+    # libmcrypt-dev \
     libxml2-dev \
     libxslt1-dev \
     zlib1g-dev \
     libpng-dev \
-    && pecl install mcrypt-1.0.1 \
+    # && pecl install mcrypt-1.0.1 \
     && docker-php-ext-configure intl \
-    && docker-php-ext-enable mcrypt\
+    # && docker-php-ext-enable mcrypt\
+    && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
+    && pecl install imagick-3.4.3 \
+    && docker-php-ext-enable imagick \
     && docker-php-ext-configure gd \
     --with-freetype-dir=/usr/lib/ \
     --with-png-dir=/usr/lib/ \
@@ -62,22 +66,14 @@ RUN apt-get -y update \
     libicu-dev \
     libldap2-dev \
     libldb-dev \
-    libmcrypt-dev \
+    # libmcrypt-dev \
     libxml2-dev \
     libxslt1-dev \
     zlib1g-dev \
     libpng-dev \
     iputils-ping \
-    procps
-
-# Install magick
-RUN export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-    libmagickwand-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && pecl install imagick-3.4.3 \
-    && docker-php-ext-enable imagick
+    procps \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
