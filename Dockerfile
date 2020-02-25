@@ -74,11 +74,9 @@ RUN apt-get -y update \
     iputils-ping \
     procps \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    # Composer
+    && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer
-
-RUN composer global require hirak/prestissimo
+    && composer global require hirak/prestissimo
