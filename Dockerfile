@@ -73,10 +73,10 @@ RUN apt-get -y update \
     libpng-dev \
     iputils-ping \
     procps \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
     # Composer
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
-    && mv composer.phar /usr/local/bin/composer
+    && mv composer.phar /usr/local/bin/composer \
     && composer global require hirak/prestissimo
